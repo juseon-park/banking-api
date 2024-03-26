@@ -20,8 +20,7 @@ public class BankingController {
     @PostMapping(value = "/register")
     @ResponseBody
     public AccountRegistrationResponse register(@RequestBody AccountRegistrationRequest requestDto){
-        String url = "http://localhost:80/banking-api/register";
-
+        String url = "http://localhost:81/banking-api/register";
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setContentType(MediaType.APPLICATION_JSON);
 
