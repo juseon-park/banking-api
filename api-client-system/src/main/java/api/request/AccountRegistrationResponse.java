@@ -1,4 +1,4 @@
-package com.banking.api.dto;
+package api.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,7 +9,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class RegistResponseDto {
+public class AccountRegistrationResponse {
     String BankAccountId;
     String code;
     String message;

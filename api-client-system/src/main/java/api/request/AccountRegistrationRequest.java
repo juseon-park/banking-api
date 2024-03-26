@@ -1,11 +1,11 @@
-package com.banking.api.dto;
+package api.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-public class RegistRequestDto {
+public class AccountRegistrationRequest {
     String bankCode;
     String bankAccountNumber;
 }

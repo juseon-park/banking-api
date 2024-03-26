@@ -1,12 +1,17 @@
-package com.banking.api.controller;
+package api.controller;
 
-import com.banking.api.dto.RegistRequestDto;
-import com.banking.api.dto.RegistResponseDto;
-import org.springframework.http.*;
+import api.request.AccountRegistrationRequest;
+import api.request.AccountRegistrationResponse;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.*;
+import org.springframework.web.client.HttpStatusCodeException;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.client.UnknownHttpStatusCodeException;
 
 @RestController
 @RequestMapping("fromApi")
@@ -14,7 +19,7 @@ public class BankingController {
 
     @PostMapping(value = "/register")
     @ResponseBody
-    public RegistResponseDto register(@RequestBody RegistRequestDto requestDto){
+    public AccountRegistrationResponse register(@RequestBody AccountRegistrationRequest requestDto){
         String url = "http://localhost:80/banking-api/register";
 
         HttpHeaders httpHeaders = new HttpHeaders();
@@ -27,10 +32,10 @@ public class BankingController {
         HttpEntity requestMessage = new HttpEntity(body, httpHeaders);
         RestTemplate restTemplate = new RestTemplate();
         try {
-            ResponseEntity<RegistResponseDto> response = restTemplate.postForEntity(
+            ResponseEntity<AccountRegistrationResponse> response = restTemplate.postForEntity(
                                             url,
                                             requestMessage,
-                                            RegistResponseDto.class
+                                            AccountRegistrationResponse.class
             );
             return response.getBody();
         } catch (HttpStatusCodeException e){
