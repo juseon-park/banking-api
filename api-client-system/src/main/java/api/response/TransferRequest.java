@@ -1,0 +1,13 @@
+package api.response;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@AllArgsConstructor
+@Getter
+public class TransferRequest {
+    String txId;
+    String fromBankAccountId;
+    String toBankcode;
+    String toBankAccountNumber;
+}
