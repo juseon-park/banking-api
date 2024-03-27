@@ -1,7 +1,9 @@
 package api.controller;
 
 import api.request.AccountRegistrationRequest;
-import api.request.AccountRegistrationResponse;
+import api.response.AccountRegistrationResponse;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -13,14 +15,14 @@ import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.client.UnknownHttpStatusCodeException;
 
+@ComponentScan
 @RestController
-@RequestMapping("fromApi")
+@RequestMapping("client")
 public class BankingController {
 
-    @PostMapping(value = "/register")
+    @PostMapping(value = "/account")
     @ResponseBody
-    public AccountRegistrationResponse register(@RequestBody AccountRegistrationRequest requestDto){
-        String url = "http://localhost:81/banking-api/register";
+    public AccountRegistrationResponse registerAccount( @Value("${mainSystemUrl}") String url , @RequestBody AccountRegistrationRequest requestDto){
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setContentType(MediaType.APPLICATION_JSON);
 
@@ -38,13 +40,13 @@ public class BankingController {
             );
             return response.getBody();
         } catch (HttpStatusCodeException e){
-                if( "400".equals(e.getStatusCode()) ){
-                    System.out.println(e.getMessage());
-                }else if("422".equals(e.getStatusCode())){
-                    System.out.println(e.getMessage());
-                }else if("500".equals(e.getStatusCode())){
-                    System.out.println(e.getMessage());
-                }
+            if( "400".equals(e.getStatusCode()) ){
+                System.out.println(e.getMessage());
+            }else if("422".equals(e.getStatusCode())){
+                System.out.println(e.getMessage());
+            }else if("500".equals(e.getStatusCode())){
+                System.out.println(e.getMessage());
+            }
         } catch (UnknownHttpStatusCodeException e){
                 System.out.println(e.getMessage());
         }

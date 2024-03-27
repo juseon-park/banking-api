@@ -1,8 +1,8 @@
 package api.controller;
 
 import api.request.AccountRegistrationRequest;
-import api.request.AccountRegistrationResponse;
-import api.response.TransferRequest;
+import api.response.AccountRegistrationResponse;
+import api.request.TransferRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

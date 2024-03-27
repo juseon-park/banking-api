@@ -1,4 +1,4 @@
-package api.request;
+package api.response;
 
 import lombok.*;
 
