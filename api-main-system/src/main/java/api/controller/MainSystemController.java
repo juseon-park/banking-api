@@ -17,7 +17,11 @@ public class MainSystemController {
     // 계좌 등록 API
     @PostMapping("/register")
     public ResponseEntity<AccountRegistrationResponse> registerAccount(@RequestBody AccountRegistrationRequest request) {
-        return mainSystemService.generateRandomResponseRegister();
+        ResponseEntity<AccountRegistrationResponse> test = mainSystemService.generateRandomResponseRegister();
+        System.out.println(":::::::::::::::get body ::::::::"+test.getBody());
+        System.out.println(":::::::::::::::get code ::::::::"+test.getStatusCode());
+        return test;
+//        return mainSystemService.generateRandomResponseRegister();
     }
 
     // 계좌 이체 API

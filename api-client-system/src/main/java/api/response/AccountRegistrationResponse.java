@@ -9,5 +9,4 @@ public class AccountRegistrationResponse {
     String bankAccountId;
     String code;
     String message;
-
 }

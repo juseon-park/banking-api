@@ -13,7 +13,7 @@ public class MainSystemService {
     public ResponseEntity<AccountRegistrationResponse> generateRandomResponseRegister() {
         Random random = new Random();
         int statusCode = random.nextInt(3);
-        switch (statusCode) {
+        switch (1) {
             case 0:
                 return ResponseEntity
                         .status(200)
