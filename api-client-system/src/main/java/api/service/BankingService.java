@@ -36,8 +36,6 @@ public class BankingService {
                     .bodyToMono(AccountRegistrationResponse.class);
             return response;
         }catch(WebClientResponseException e){
-            System.out.println(":::::::::::: response status code :::::::::::: "+e.getStatusCode());
-            System.out.println(":::::::::::: response body :::::::::::: "+e.getResponseBodyAsString());
             return null;
         }
 
