@@ -6,7 +6,6 @@ import lombok.*;
 @NoArgsConstructor
 @Getter
 public class AccountRegistrationResponse {
-    int statusCode;
     String bankAccountId;
     String code;
     String message;

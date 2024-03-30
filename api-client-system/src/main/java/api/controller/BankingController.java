@@ -4,6 +4,7 @@ import api.request.AccountRegistrationRequest;
 import api.response.AccountRegistrationResponse;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -18,11 +19,15 @@ import org.springframework.web.client.UnknownHttpStatusCodeException;
 @ComponentScan
 @RestController
 @RequestMapping("client")
+@PropertySource("classpath:application.yaml")
 public class BankingController {
+
+    @Value("${mainSystemUrl}") String url;
 
     @PostMapping(value = "/account")
     @ResponseBody
-    public AccountRegistrationResponse registerAccount( @Value("${mainSystemUrl}") String url , @RequestBody AccountRegistrationRequest requestDto){
+    public AccountRegistrationResponse registerAccount( @RequestBody AccountRegistrationRequest requestDto){
+        System.out.println(url);
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setContentType(MediaType.APPLICATION_JSON);
 
