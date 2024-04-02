@@ -18,7 +18,6 @@ public class MainSystemController {
     @PostMapping("/register")
     public ResponseEntity<AccountRegistrationResponse> registerAccount(@RequestBody AccountRegistrationRequest request) {
         ResponseEntity<AccountRegistrationResponse> test = mainSystemService.generateRandomResponseRegister();
-        System.out.println(":::::::::::::::get body ::::::::"+test.getBody());
         System.out.println(":::::::::::::::get code ::::::::"+test.getStatusCode());
         return test;
 //        return mainSystemService.generateRandomResponseRegister();

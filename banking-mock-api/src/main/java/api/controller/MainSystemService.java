@@ -1,5 +1,6 @@
 package api.controller;
 
+import api.response.BankingExceptionResponse;
 import api.response.AccountRegistrationResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -13,7 +14,7 @@ public class MainSystemService {
     public ResponseEntity<AccountRegistrationResponse> generateRandomResponseRegister() {
         Random random = new Random();
         int statusCode = random.nextInt(3);
-        switch (1) {
+        switch (statusCode) {
             case 0:
                 return ResponseEntity
                         .status(200)
