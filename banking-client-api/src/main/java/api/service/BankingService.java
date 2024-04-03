@@ -1,9 +1,12 @@
 package api.service;
 
-import api.config.exception.TestException;
+import api.config.exception.TransferFundsException;
+import api.config.exception.registerAccountException;
 import api.request.AccountRegistrationRequest;
+import api.request.TransferRequest;
 import api.response.BankingExceptionResponse;
 import api.response.AccountRegistrationResponse;
+import api.response.TransferResponse;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.MediaType;
@@ -28,25 +31,28 @@ public class BankingService {
                     .retrieve()
                     .onStatus(status -> status.is4xxClientError() || status.is5xxServerError()
                             , clientResponse ->
-                                    clientResponse.bodyToMono(BankingExceptionResponse.class)
-                                            .map(body -> new TestException("test error",body)))
-//                    .onStatus(HttpStatusCode::isError, e -> {
-//                                System.out.println(e.statusCode());
-//                                return Mono.just(new customException());
-//                            }
-//                    )
+                                    clientResponse.toEntity(BankingExceptionResponse.class)
+                                            .flatMap(body -> Mono.error(new registerAccountException("Register Account Error", body.getBody(), body.getStatusCode()))))
                     .bodyToMono(AccountRegistrationResponse.class);
-                    //coustom exception으로 에러코드별 처리
-//                    .exchangeToMono(clientResponse -> {
-//                        if (clientResponse.statusCode().equals(HttpStatus.OK))
-//                            return clientResponse.bodyToMono(AccountRegistrationResponse.class);
-//                        else
-//                            return clientResponse.createError();
-//                        });
-
-
             return response;
 
     }
 
+    public Mono<TransferResponse> transferFunds(TransferRequest request){
+        Mono<TransferResponse> response = WebClient.builder()
+                .baseUrl(url)
+                .build()
+                .post()
+                .uri("/transfer")
+                .accept(MediaType.APPLICATION_JSON)
+                .bodyValue(request)
+                .retrieve()
+                .onStatus(status -> status.is4xxClientError() || status.is5xxServerError()
+                        , clientResponse ->
+                                clientResponse.toEntity(TransferResponse.class)
+                                        .flatMap(body -> Mono.error(new TransferFundsException("Transfer Funds Error", body.getBody(), body.getStatusCode()))))
+                .bodyToMono(TransferResponse.class);
+        return response;
+
+    }
 }
