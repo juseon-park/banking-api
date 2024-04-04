@@ -8,6 +8,6 @@ import lombok.Getter;
 public class TransferRequest {
     String txId;
     String fromBankAccountId;
-    String toBankcode;
+    String toBankCode;
     String toBankAccountNumber;
 }

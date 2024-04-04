@@ -24,7 +24,6 @@ public class MainSystemController {
     // 계좌 이체 API
     @PostMapping("/transfer")
     public ResponseEntity<TransferResponse> transferFunds(@RequestBody TransferRequest request) {
-        System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+request.getTxId());
         return mainSystemService.generateRandomResponseTransfer(request);
     }
 
