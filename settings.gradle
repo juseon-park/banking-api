@@ -1,0 +1,4 @@
+rootProject.name = 'banking-multi-module-api'
+include 'api-main-system'
+include 'api-client-system'
+
