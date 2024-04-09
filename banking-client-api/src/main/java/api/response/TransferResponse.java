@@ -6,9 +6,7 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public class TransferResponse {
-    String tx_id;
+    String txId;
     String bankTxId;
     String result;
-    String code;
-    String message;
 }
