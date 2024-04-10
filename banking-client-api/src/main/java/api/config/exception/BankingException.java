@@ -1,18 +1,17 @@
 package api.config.exception;
 
 import api.response.BankingExceptionResponse;
-import api.response.TransferResponse;
 import lombok.Getter;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.web.reactive.function.client.WebClientException;
 
 @Getter
-public class TransferFundsException extends WebClientException {
+public class BankingException extends WebClientException {
 
-    private TransferResponse response;
+    private BankingExceptionResponse response;
     private HttpStatusCode statusCode;
 
-    public TransferFundsException(String msg, TransferResponse response, HttpStatusCode statusCode) {
+    public BankingException(String msg, BankingExceptionResponse response, HttpStatusCode statusCode) {
         super(msg);
         this.response = response;
         this.statusCode = statusCode;
