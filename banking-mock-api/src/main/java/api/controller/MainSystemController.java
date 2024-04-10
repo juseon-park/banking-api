@@ -4,6 +4,7 @@ import api.request.AccountRegistrationRequest;
 import api.request.TransferRequest;
 import api.response.AccountRegistrationResponse;
 import api.response.TransferResponse;
+import api.response.TransferResultResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -28,9 +29,9 @@ public class MainSystemController {
     }
 
     // 이체 결과 조회 API
-    @GetMapping("/transfer/{tx_id}")
-    public ResponseEntity<AccountRegistrationResponse> getTransferResult(@PathVariable("tx_id") String txId) {
-        return mainSystemService.generateRandomResponseRegister();
+    @GetMapping("/transfer/{txId}")
+    public ResponseEntity<TransferResultResponse> getTransferResult(@PathVariable("txId") String txId) {
+        return mainSystemService.generateRandomResponseTransferResult();
     }
 
 
