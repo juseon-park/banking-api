@@ -6,6 +6,7 @@ import api.request.TransferRequest;
 import api.response.BankingExceptionResponse;
 import api.response.AccountRegistrationResponse;
 import api.response.TransferResponse;
+import api.response.TransferResultResponse;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.MediaType;
@@ -55,5 +56,23 @@ public class BankingService {
 
     }
 
+    public Mono<TransferResultResponse> getTransferResult(String txId){
+        Mono<TransferResultResponse> response = WebClient.builder()
+                .baseUrl(url)
+                .build()
+                .get()
+                .uri(uriBuilder -> uriBuilder
+                        .path("/transfer/{txId}")
+                        .build(txId))
+                .accept(MediaType.APPLICATION_JSON)
+                .retrieve()
+                .onStatus(status -> status.is4xxClientError() || status.is5xxServerError()
+                        , clientResponse ->
+                                clientResponse.toEntity(BankingExceptionResponse.class)
+                                        .flatMap(body -> Mono.error(new BankingException("Get Transfer Result Error", body.getBody(), body.getStatusCode()))))
+                .bodyToMono(TransferResultResponse.class);
+        return response;
+
+    }
 
 }
