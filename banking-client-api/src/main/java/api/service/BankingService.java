@@ -19,7 +19,7 @@ import reactor.core.publisher.Mono;
 @PropertySource("classpath:application.yaml")
 public class BankingService {
 
-    @Value("${mainSystemUrl}") String url;
+    @Value("${host.mock.banking.url}") String url;
 
     public Mono<AccountRegistrationResponse> registerAccount(AccountRegistrationRequest request){
             Mono<AccountRegistrationResponse> response = WebClient.builder()

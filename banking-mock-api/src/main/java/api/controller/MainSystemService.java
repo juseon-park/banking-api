@@ -38,8 +38,7 @@ public class MainSystemService {
     public ResponseEntity<TransferResponse> generateRandomResponseTransfer(TransferRequest request) {
         int statusCode = random.nextInt(7);
         String bankTxId = String.valueOf(random.nextInt(99999999));
-        System.out.println(statusCode);
-        switch (6) {
+        switch (statusCode) {
             case 0:
                 return ResponseEntity
                         .status(200)

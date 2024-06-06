@@ -28,4 +28,7 @@ spring:
         format_sql: true      # ?? ?? ?? (??)
         show_sql: true        # ?? ?? ??
 
-mainSystemUrl: http://localhost:81/banking-api
+host:
+  mock:
+    banking:
+      url: http://localhost:81/banking-api
