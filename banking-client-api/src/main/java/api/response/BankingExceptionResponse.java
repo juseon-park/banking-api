@@ -10,4 +10,10 @@ import lombok.NoArgsConstructor;
 public class BankingExceptionResponse {
     String code;
     String message;
+    String bankTxId;
+
+    public BankingExceptionResponse(String code, String message) {
+        this.code = code;
+        this.message = message;
+    }
 }

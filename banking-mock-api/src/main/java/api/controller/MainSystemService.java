@@ -37,19 +37,20 @@ public class MainSystemService {
 
     public ResponseEntity<TransferResponse> generateRandomResponseTransfer(TransferRequest request) {
         int statusCode = random.nextInt(7);
+        String bankTxId = String.valueOf(random.nextInt(99999999));
         System.out.println(statusCode);
-        switch (statusCode) {
+        switch (6) {
             case 0:
                 return ResponseEntity
                         .status(200)
                         .body(new TransferResponse(request.getTxId(),
-                                String.valueOf(random.nextInt(99999999)),
+                                bankTxId,
                                 "SUCCESS"));
             case 1:
                 return ResponseEntity
                             .status(200)
                             .body(new TransferResponse(request.getTxId(),
-                                      String.valueOf(random.nextInt(99999999)),
+                                      bankTxId,
                                      "FAIL"));
 
             case 2:
@@ -71,7 +72,7 @@ public class MainSystemService {
             case 6:
                 // 일시적으로 사용 불가
                 throw new BankingException("BANKING_ERROR_999 : 일시적으로 사용 불가", ResponseEntity.status(500)
-                                                                .body(new BankingExceptionResponse("BANKING_ERROR_999","일시적으로 사용 불가")));
+                                                                .body(new BankingExceptionResponse("BANKING_ERROR_999","일시적으로 사용 불가",bankTxId)));
             default:
                 throw new InternalError("value should be 0~6");
         }

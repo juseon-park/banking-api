@@ -1,6 +1,7 @@
 package api.service;
 
-import api.config.exception.BankingException;
+import api.config.exception.Banking4XXException;
+import api.config.exception.Banking5XXException;
 import api.request.AccountRegistrationRequest;
 import api.request.TransferRequest;
 import api.response.BankingExceptionResponse;
@@ -32,7 +33,7 @@ public class BankingService {
                     .onStatus(status -> status.is4xxClientError() || status.is5xxServerError()
                             , clientResponse ->
                                     clientResponse.toEntity(BankingExceptionResponse.class)
-                                            .flatMap(body -> Mono.error(new BankingException("Register Account Error",body.getBody(), body.getStatusCode()))))
+                                            .flatMap(body -> Mono.error(new Banking4XXException("Register Account Error",body.getBody(), body.getStatusCode()))))
                     .bodyToMono(AccountRegistrationResponse.class);
             return response;
 
@@ -47,10 +48,14 @@ public class BankingService {
                 .accept(MediaType.APPLICATION_JSON)
                 .bodyValue(request)
                 .retrieve()
-                .onStatus(status -> status.is4xxClientError() || status.is5xxServerError()
+                .onStatus(status -> status.is4xxClientError()
                         , clientResponse ->
                                 clientResponse.toEntity(BankingExceptionResponse.class)
-                                        .flatMap(body -> Mono.error(new BankingException("Transfer Funds Error", body.getBody(), body.getStatusCode()))))
+                                        .flatMap(body -> Mono.error(new Banking4XXException("Transfer Funds Client Error", body.getBody(), body.getStatusCode()))))
+                .onStatus(status -> status.is5xxServerError()
+                        , clientResponse ->
+                                clientResponse.toEntity(BankingExceptionResponse.class)
+                                        .flatMap(body -> Mono.error(new Banking5XXException("Transfer Funds Server Error", body.getBody(), body.getStatusCode(), request))))
                 .bodyToMono(TransferResponse.class);
         return response;
 
@@ -69,7 +74,7 @@ public class BankingService {
                 .onStatus(status -> status.is4xxClientError() || status.is5xxServerError()
                         , clientResponse ->
                                 clientResponse.toEntity(BankingExceptionResponse.class)
-                                        .flatMap(body -> Mono.error(new BankingException("Get Transfer Result Error", body.getBody(), body.getStatusCode()))))
+                                        .flatMap(body -> Mono.error(new Banking4XXException("Get Transfer Result Error", body.getBody(), body.getStatusCode()))))
                 .bodyToMono(TransferResultResponse.class);
         return response;
 
