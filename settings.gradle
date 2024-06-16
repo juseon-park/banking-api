@@ -1,4 +1,5 @@
 rootProject.name = 'banking-multi-module-api'
 include 'banking-mock-api'
 include 'banking-client-api'
+include 'banking-core'
 

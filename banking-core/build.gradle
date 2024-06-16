@@ -2,16 +2,14 @@ plugins {
     id 'java'
 }
 
-group 'com.banking'
-version '0.0.1-SNAPSHOT'
+group 'com.baking'
+version 'unspecified'
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    implementation project(':banking-core')
-    implementation project(':banking-client-api')
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
 }

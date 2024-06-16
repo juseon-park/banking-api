@@ -18,8 +18,6 @@ public class Banking5XXException extends WebClientException {
         super(msg);
         this.response = response;
         this.statusCode = statusCode;
-        System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ::" + response.getBankTxId());
-        System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ::" + request.getFromBankAccountId());
         dto = BankingServerExceptionLogDTO
                 .builder()
                 .request(request)
