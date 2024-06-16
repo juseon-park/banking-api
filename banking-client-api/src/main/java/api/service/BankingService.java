@@ -2,28 +2,28 @@ package api.service;
 
 import api.config.exception.Banking4XXException;
 import api.config.exception.Banking5XXException;
+import api.config.properties.HostProperties;
 import api.request.AccountRegistrationRequest;
 import api.request.TransferRequest;
-import api.response.BankingExceptionResponse;
 import api.response.AccountRegistrationResponse;
+import api.response.BankingExceptionResponse;
 import api.response.TransferResponse;
 import api.response.TransferResultResponse;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
 @Service
-@PropertySource("classpath:application.yaml")
+@RequiredArgsConstructor
 public class BankingService {
 
-    @Value("${host.mock.banking.url}") String url;
+    private final HostProperties properties;
 
     public Mono<AccountRegistrationResponse> registerAccount(AccountRegistrationRequest request){
             Mono<AccountRegistrationResponse> response = WebClient.builder()
-                    .baseUrl(url)
+                    .baseUrl(properties.getMockBankingUrl())
                     .build()
                     .post()
                     .uri("/register")
@@ -41,7 +41,7 @@ public class BankingService {
 
     public Mono<TransferResponse> transferFunds(TransferRequest request){
         Mono<TransferResponse> response = WebClient.builder()
-                .baseUrl(url)
+                .baseUrl(properties.getMockBankingUrl())
                 .build()
                 .post()
                 .uri("/transfer")
@@ -63,7 +63,7 @@ public class BankingService {
 
     public Mono<TransferResultResponse> getTransferResult(String txId){
         Mono<TransferResultResponse> response = WebClient.builder()
-                .baseUrl(url)
+                .baseUrl(properties.getMockBankingUrl())
                 .build()
                 .get()
                 .uri(uriBuilder -> uriBuilder

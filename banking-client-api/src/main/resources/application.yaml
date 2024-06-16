@@ -30,6 +30,4 @@ spring:
         show_sql: true        # ?? ?? ??
 
 host:
-  mock:
-    banking:
-      url: http://localhost:81/banking-api
+      mock-banking-url: http://localhost:81/banking-api
